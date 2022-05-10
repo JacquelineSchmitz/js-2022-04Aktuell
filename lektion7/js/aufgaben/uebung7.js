@@ -16,7 +16,7 @@ function aufgabe1() {
   }
 
   //ToDo: füge ab hier deinen Code ein
-
+let apfel = new Apfel("rot")
   console.debug(apfel.farbe)
 }
 
@@ -32,6 +32,9 @@ function aufgabe2() {
     }
 
     //ToDo: füge ab hier deinen Code ein
+    hupen() {
+      console.debug("honk honk")
+    }
   }
 
   let bmw = new Auto("rot")
@@ -58,6 +61,8 @@ function aufgabe3() {
   let mini = new Pkw("blau")
 
   //ToDo: füge ab hier deinen Code ein
+  console.debug(mini.farbe)
+  mini.hupen()
 }
 
 /**
@@ -68,7 +73,9 @@ function aufgabe4() {
 
   class Motorrad {
     //ToDo: füge ab hier deinen Code ein
-
+    constructor(baujahr) {
+      this.baujahr = baujahr
+    }
     hupen() {
       console.debug("honk honk")
     }
@@ -86,7 +93,16 @@ function aufgabe5() {
   console.debug("Aufgabe 5 ==========================");
 
   //ToDo: füge ab hier deinen Code ein
+class Elektroauto {
+  constructor(farbe) {
+    this.farbe = farbe
+  }
+  hupen(){
+    console.debug("honk honk")
+  }
+}
 
+let tesla = new Elektroauto("grau")
   console.debug(tesla.farbe)
   tesla.hupen()
 }
