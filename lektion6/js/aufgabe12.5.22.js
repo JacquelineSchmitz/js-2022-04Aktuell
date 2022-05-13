@@ -22,6 +22,7 @@ class Filmliste { // Gruppe
       // 2.Durchlauf: i = filme[1]
       // usw.
       this.liste.push(i)
+      console.debug(i.titel, i.erscheinungsjahr, i.fsk, )
     }
 
     for (let i = 0; i < filme.length; i++) {
@@ -58,3 +59,9 @@ let film4 = new Film("Iron Man", 126, 12, "Action", 2008, false)
 let siFiListe = new Filmliste("Science-Fiction")
 let siFiArray = [film1, film2]
 siFiListe.filmeHinzufuegen(siFiArray)
+
+let action = new Filmliste("Action")
+let actionArray =[ film3, film4]
+action.filmeHinzufuegen(actionArray)
+
+
