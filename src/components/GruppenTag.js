@@ -14,8 +14,9 @@ class GruppenTag extends React.Component {
           <i className="material-icons">expand_less</i>
         </dt>
 
-        <br/>
 
+        <ArtikelTag/>
+        <ArtikelTag/>
         <ArtikelTag/>
       </React.Fragment>
     )
