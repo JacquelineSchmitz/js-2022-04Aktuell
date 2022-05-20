@@ -10,43 +10,50 @@ class ShoppingList extends React.Component {
   }
 
   initialisieren() {
-    let fantasy = App.gruppeHinzufuegen("Fantasy")
-    let film1 = fantasy.artikelHinzufuegen("Der Dunkle Kristall")
-    film1.gekauft = true
-    fantasy.artikelHinzufuegen("Die Barbaren")
+    let horror = App.gruppeHinzufuegen("Horror")
+    let film1 = horror.artikelHinzufuegen("Freitag der 13.")
+    film1.gekauft = false
+    horror.artikelHinzufuegen("Evil Dead")
+    horror.artikelHinzufuegen("The Devils Rejects")
+    horror.artikelHinzufuegen("Stephen King ES")
     let scifi = App.gruppeHinzufuegen("Science Fiction")
-    let film2 = scifi.artikelHinzufuegen("Alita - Battle Angel")
+    let film2 = scifi.artikelHinzufuegen("Stranger Things")
     film2.gekauft = true
-    scifi.artikelHinzufuegen("Mad Max - Fury Road")
-    let dokus = App.gruppeHinzufuegen("Dokumentationen")
-    let film3 = dokus.artikelHinzufuegen("Endgame - Blaupause für die Globale Versklavung")
+    scifi.artikelHinzufuegen("Star Wars 9 Der Aufstieg ...")
+    scifi.artikelHinzufuegen("Mandalorian")
+    scifi.artikelHinzufuegen("Boba Fett")
+    scifi.artikelHinzufuegen("Ewoks-Kampf um Endor")
+    let mystery = App.gruppeHinzufuegen("Mystery")
+    let film3 = mystery.artikelHinzufuegen("Vampire Diarys")
     film3.gekauft = true
-    dokus.artikelHinzufuegen("Die Kabale")
+    mystery.artikelHinzufuegen("The Orginals")
   }
 
   render() {
-    let nochZuKaufen = []
+    let Movie = []
     for (const gruppe of App.gruppenListe) {
-      nochZuKaufen.push(<GruppenTag
+      Movie.push(<GruppenTag
         key={gruppe.id}
         gruppe={gruppe}
         gekauft={false}/>)
     }
 
 
-    let schonGekauft = []
+    let WatchedMovie = []
     for (const gruppe of App.gruppenListe) {
-      schonGekauft.push(<GruppenTag
+      WatchedMovie.push(<GruppenTag
         key={gruppe.id}
         gruppe={gruppe}
         gekauft={true}/>)
     }
 
+
+
     return (
       <div id="container">
         {/* ToDo: füge hier drunter Deinen HTML-Code ein */}
         <header>
-          <h1>Watchlist</h1>
+          <h1>Movielist</h1>
           <label
             className="mdc-text-field mdc-text-field--filled mdc-text-field--with-trailing-icon mdc-text-field--no-label">
             <span className="mdc-text-field__ripple"></span>
@@ -61,20 +68,20 @@ class ShoppingList extends React.Component {
 
         <main>
           <section>
-            <h2>Noch zu kaufen
+            <h2>Movie
               <i className="material-icons">expand_less</i>
             </h2>
             <dl>
-              {nochZuKaufen}
+              {Movie}
             </dl>
           </section>
           <hr/>
           <section>
-            <h2>Schon gekauft
+            <h2>WatchedMovie
               <i className="material-icons">expand_less</i>
             </h2>
             <dl>
-              {schonGekauft}
+              {WatchedMovie}
             </dl>
           </section>
         </main>

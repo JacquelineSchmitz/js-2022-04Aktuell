@@ -1,19 +1,20 @@
 #root {
     width: 23rem;
-    background-image: url("../img/markt.jpg");
+    background-image: url("../img/IMG_9681.JPG");
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
+    background-size: 1000px;
 }
 #container {
     opacity: 85%;
 }
 :root {
-    --mdc-theme-primary: #33691E;
+    --mdc-theme-primary: #B50006;
     --mdc-theme-secondary: #827717;
 }
 dt {
-    background-color: #7CB342;
+    background-color: #F50008;
     color: var(--mdc-theme-on-primary);
 }
 h2, dd {
