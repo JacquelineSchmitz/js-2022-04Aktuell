@@ -6,19 +6,19 @@ class ArtikelTag extends React.Component {
   }
 
   render() {
+    const artikel = this.props.artikel
+    let artikelName = artikel.name
+    if (artikel.gekauft) {
+      artikelName = <s>{artikel.name}</s>
+    }
+
     return (
       <React.Fragment>
         {/* ToDo: füge hier drunter Deinen HTML-Code ein */}
-        <dd><label><input type="checkbox"/> Brokkoli</label></dd>
-        <dt>Getreideprodukte
-          <i className="material-icons">expand_less</i>
-        </dt>
-        <dd><label><input type="checkbox"/> Reis</label></dd>
-        <dt>Milchprodukte
-          <i className="material-icons">expand_less</i>
-        </dt>
-        <dd><label><input type="checkbox"/> Streukäse</label></dd>
-        <br/>
+        <dd><label>
+          <input type="checkbox"/>
+          {artikelName}
+        </label></dd>
       </React.Fragment>
     )
   }
