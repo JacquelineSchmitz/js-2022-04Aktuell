@@ -7,60 +7,75 @@ class ShoppingList extends React.Component {
   constructor(props) {
     super(props)
     this.initialisieren()
+    this.state = {
+      aktiveGruppe: null,
+      showGruppenDialog: false,
+      showSortierDialog: false,
+      einkaufenAufgeklappt: true,
+      erledigtAufgeklappt: false
+    }
   }
 
   initialisieren() {
-    let horror = App.gruppeHinzufuegen("Horror")
-    let film1 = horror.artikelHinzufuegen("Freitag der 13.")
-    film1.gekauft = false
-    horror.artikelHinzufuegen("Evil Dead")
-    horror.artikelHinzufuegen("The Devils Rejects")
-    horror.artikelHinzufuegen("Stephen King ES")
+    let fantasy = App.gruppeHinzufuegen("Fantasy")
+    let film1 = fantasy.artikelHinzufuegen("Der Dunkle Kristall")
+    film1.gekauft = true
+    fantasy.artikelHinzufuegen("Die Barbaren")
     let scifi = App.gruppeHinzufuegen("Science Fiction")
-    let film2 = scifi.artikelHinzufuegen("Stranger Things")
+    let film2 = scifi.artikelHinzufuegen("Alita - Battle Angel")
     film2.gekauft = true
-    scifi.artikelHinzufuegen("Star Wars 9 Der Aufstieg ...")
-    scifi.artikelHinzufuegen("Mandalorian")
-    scifi.artikelHinzufuegen("Boba Fett")
-    scifi.artikelHinzufuegen("Ewoks-Kampf um Endor")
-    let mystery = App.gruppeHinzufuegen("Mystery")
-    let film3 = mystery.artikelHinzufuegen("Vampire Diarys")
+    scifi.artikelHinzufuegen("Mad Max - Fury Road")
+    let dokus = App.gruppeHinzufuegen("Dokumentationen")
+    let film3 = dokus.artikelHinzufuegen("Endgame - Blaupause für die Globale Versklavung")
     film3.gekauft = true
-    mystery.artikelHinzufuegen("The Orginals")
+    dokus.artikelHinzufuegen("Die Kabale")
+  }
+
+  einkaufenAufZuKlappen() {
+    let neuerZustand = !this.state.einkaufenAufgeklappt
+    this.setState({einkaufenAufgeklappt: neuerZustand})
+  }
+
+  erledigtAufZuKlappen() {
+    // ToDo: fertig programmieren
+    let neuerZustand2 = !this.state.erledigtAufgeklappt
+    this.setState({erledigtAufgeklappt: neuerZustand2})
   }
 
   render() {
-    let Movie = []
-    for (const gruppe of App.gruppenListe) {
-      Movie.push(<GruppenTag
-        key={gruppe.id}
-        gruppe={gruppe}
-        gekauft={false}/>)
+    let nochZuKaufen = []
+    if (this.state.einkaufenAufgeklappt == true) {
+      for (const gruppe of App.gruppenListe) {
+        nochZuKaufen.push(<GruppenTag
+          key={gruppe.id}
+          gruppe={gruppe}
+          gekauft={false}/>)
+      }
     }
 
 
-    let WatchedMovie = []
-    for (const gruppe of App.gruppenListe) {
-      WatchedMovie.push(<GruppenTag
-        key={gruppe.id}
-        gruppe={gruppe}
-        gekauft={true}/>)
-    }
-
-
+    let schonGekauft = []
+    // ToDo: Bedingung  mit 'erledigtAufgeklappt' programmieren
+    if (this.state.erledigtAufgeklappt)
+      for (const gruppe of App.gruppenListe) {
+        schonGekauft.push(<GruppenTag
+          key={gruppe.id}
+          gruppe={gruppe}
+          gekauft={true}/>)
+      }
 
     return (
       <div id="container">
         {/* ToDo: füge hier drunter Deinen HTML-Code ein */}
         <header>
-          <h1>Movielist</h1>
+          <h1>Warhammer</h1>
           <label
             className="mdc-text-field mdc-text-field--filled mdc-text-field--with-trailing-icon mdc-text-field--no-label">
             <span className="mdc-text-field__ripple"></span>
             <input className="mdc-text-field__input" type="search"
-                   id="artikelEingabe" placeholder="Film hinzufügen "/>
+                   id="artikelEingabe" placeholder="Artikel hinzufügen"/>
             <i className="material-icons mdc-text-field__icon mdc-text-field__icon--trailing"
-               role="button">add_circle</i>
+               role="button">add_circle_outlined</i>
             <span className="mdc-line-ripple"></span>
           </label>
         </header>
@@ -68,20 +83,25 @@ class ShoppingList extends React.Component {
 
         <main>
           <section>
-            <h2>Movie
-              <i className="material-icons">expand_less</i>
+            <h2>Noch zu kaufen
+              <i onClick={() => this.einkaufenAufZuKlappen()} className="material-icons">
+                {this.state.einkaufenAufgeklappt ? 'expand_more' : 'expand_less'}
+              </i>
             </h2>
             <dl>
-              {Movie}
+              {nochZuKaufen}
             </dl>
           </section>
           <hr/>
           <section>
-            <h2>WatchedMovie
-              <i className="material-icons">expand_less</i>
+            <h2>Schon gekauft
+              {/* ToDo: füge hier drunter Deinen Code ein */}
+              <i onClick={() => this.erledigtAufZuKlappen()} className="material-icons">
+                {this.state.erledigtAufgeklappt ? 'expand_more' : 'expand_less'}
+              </i>
             </h2>
             <dl>
-              {WatchedMovie}
+              {schonGekauft}
             </dl>
           </section>
         </main>
@@ -90,7 +110,7 @@ class ShoppingList extends React.Component {
         <footer>
           <button className="mdc-button mdc-button--raised">
             <span className="material-icons">bookmark_add</span>
-            <span className="mdc-button__ripple"></span> Genre
+            <span className="mdc-button__ripple"></span> Gruppen
           </button>
           <button className="mdc-button mdc-button--raised">
             <span className="material-icons">sort</span>
@@ -98,7 +118,7 @@ class ShoppingList extends React.Component {
           </button>
           <button className="mdc-button mdc-button--raised">
             <span className="material-icons">settings</span>
-            <span className="mdc-button__ripple"></span> Einstellungen
+            <span className="mdc-button__ripple"></span> Setup
           </button>
         </footer>
       </div>
