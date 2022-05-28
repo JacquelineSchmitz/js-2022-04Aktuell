@@ -20,15 +20,15 @@ class App extends React.Component {
     let fantasy = Modell.gruppeHinzufuegen("Fantasy")
     let film1 = fantasy.artikelHinzufuegen("Der Dunkle Kristall")
     film1.gekauft = true
-    fantasy.artikelHinzufuegen("Die Barbaren")
+    fantasy.artikelHinzufuegen("Avatar")
     let scifi = Modell.gruppeHinzufuegen("Science Fiction")
-    let film2 = scifi.artikelHinzufuegen("Alita - Battle Angel")
+    let film2 = scifi.artikelHinzufuegen("Die Ewkos")
     film2.gekauft = true
-    scifi.artikelHinzufuegen("Mad Max - Fury Road")
-    let dokus = Modell.gruppeHinzufuegen("Dokumentationen")
-    let film3 = dokus.artikelHinzufuegen("Endgame - Blaupause für die Globale Versklavung")
+    scifi.artikelHinzufuegen("Star Wars")
+    let horror = Modell.gruppeHinzufuegen("Horror")
+    let film3 = horror.artikelHinzufuegen("Freitag der 13.")
     film3.gekauft = true
-    dokus.artikelHinzufuegen("Die Kabale")
+    horror.artikelHinzufuegen("The Devils Rejects")
   }
 
   einkaufenAufZuKlappen() {
@@ -43,9 +43,18 @@ class App extends React.Component {
   artikelChecken = (artikel) => {
     // ToDo: implementiere diese Methode
     // artikel.gekauft 'umpolen'
+    artikel.gekauft = !artikel.gekauft
     // 'aktion' abhängig von 'artikel.gekauft' auf "erledigt" oder "reaktiviert" setzen
+    let aktion
+    if (artikel.gekauft == true){
+      aktion = "erledigt"
+    }else {
+      aktion = "unerledigt"
+    }
     // App.informieren mit 'aktion'
+    Modell.informieren(`${artikel.name}"ist" ${aktion}`)
     // 'state' aktualisieren
+    this.setState(this.state)
   }
 
   artikelHinzufuegen() {
@@ -66,10 +75,10 @@ class App extends React.Component {
   }
 
   render() {
-    let nochZuKaufen = []
+    let nochNichtGesehen = []
     if (this.state.einkaufenAufgeklappt == true) {
       for (const gruppe of Modell.gruppenListe) {
-        nochZuKaufen.push(<GruppenTag
+        nochNichtGesehen.push(<GruppenTag
           key={gruppe.id}
           gruppe={gruppe}
           gekauft={false}
@@ -80,10 +89,10 @@ class App extends React.Component {
     }
 
 
-    let schonGekauft = []
+    let schonGesehen = []
     if (this.state.erledigtAufgeklappt) {
       for (const gruppe of Modell.gruppenListe) {
-        schonGekauft.push(<GruppenTag
+        schonGesehen.push(<GruppenTag
           key={gruppe.id}
           gruppe={gruppe}
           gekauft={true}
@@ -104,6 +113,7 @@ class App extends React.Component {
                    onKeyPress={e => (e.key == 'Enter') ? this.artikelHinzufuegen() : ''}/>
             <span className="mdc-line-ripple"></span>
             <i className="material-icons mdc-text-field__icon mdc-text-field__icon--trailing"
+               tabIndex="0" role="button"
                onClick={() => this.artikelHinzufuegen()}>add_circle</i>
           </label>
 
@@ -112,24 +122,24 @@ class App extends React.Component {
 
         <main>
           <section>
-            <h2>Noch zu kaufen
+            <h2>Noch nicht gesehen
               <i onClick={() => this.einkaufenAufZuKlappen()} className="material-icons">
                 {this.state.einkaufenAufgeklappt ? 'expand_more' : 'expand_less'}
               </i>
             </h2>
             <dl>
-              {nochZuKaufen}
+              {nochNichtGesehen}
             </dl>
           </section>
           <hr/>
           <section>
-            <h2>Schon gekauft
+            <h2>Schon gesehen
               <i onClick={() => this.erledigtAufZuKlappen()} className="material-icons">
                 {this.state.erledigtAufgeklappt ? 'expand_more' : 'expand_less'}
               </i>
             </h2>
             <dl>
-              {schonGekauft}
+              {schonGesehen}
             </dl>
           </section>
         </main>
