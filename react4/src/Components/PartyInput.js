@@ -16,6 +16,10 @@ class PartyInput extends React.Component{
          * ToDo: Führe die Funktion handleInput() aus, welche über die Props in diese Klasse übergeben wurde.
          *  Benutze als Argument das input-Attribut des States (wie in Zeile 8 gespeichert).
          */
+    this.props.handleInput(this.state.input)
+
+
+
     }
 
     onChange(event){
@@ -28,10 +32,12 @@ class PartyInput extends React.Component{
              * ToDo: Schreibe für den unteren Button ein onClick-Event,
              *  sodass die Funktion onButtonClick ausgeführt wird.
              */
-            <div>
+
+
+        <div>
                 <input placeholder={this.props.headline} onChange={
                     (event) => this.onChange(event)}/>
-                <button>Change Party Name</button>
+            <button onClick={this.onButtonClick}>Change Party Name</button>
             </div>
         )
     }
