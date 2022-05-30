@@ -1,5 +1,6 @@
 import React from 'react'
 import GruppenTag from './components/GruppenTag'
+import GruppenDialog from './components/GruppenDialog'
 import Modell from './model/Shopping'
 
 
@@ -20,15 +21,15 @@ class App extends React.Component {
     let fantasy = Modell.gruppeHinzufuegen("Fantasy")
     let film1 = fantasy.artikelHinzufuegen("Der Dunkle Kristall")
     film1.gekauft = true
-    fantasy.artikelHinzufuegen("Avatar")
+    fantasy.artikelHinzufuegen("Die Barbaren")
     let scifi = Modell.gruppeHinzufuegen("Science Fiction")
-    let film2 = scifi.artikelHinzufuegen("Die Ewkos")
+    let film2 = scifi.artikelHinzufuegen("Alita - Battle Angel")
     film2.gekauft = true
-    scifi.artikelHinzufuegen("Star Wars")
-    let horror = Modell.gruppeHinzufuegen("Horror")
-    let film3 = horror.artikelHinzufuegen("Freitag der 13.")
+    scifi.artikelHinzufuegen("Mad Max - Fury Road")
+    let dokus = Modell.gruppeHinzufuegen("Dokumentationen")
+    let film3 = dokus.artikelHinzufuegen("Endgame - Blaupause für die Globale Versklavung")
     film3.gekauft = true
-    horror.artikelHinzufuegen("The Devils Rejects")
+    dokus.artikelHinzufuegen("Die Kabale")
   }
 
   einkaufenAufZuKlappen() {
@@ -41,27 +42,18 @@ class App extends React.Component {
   }
 
   artikelChecken = (artikel) => {
-    // ToDo: implementiere diese Methode
-    // artikel.gekauft 'umpolen'
     artikel.gekauft = !artikel.gekauft
-    // 'aktion' abhängig von 'artikel.gekauft' auf "erledigt" oder "reaktiviert" setzen
-    let aktion
-    if (artikel.gekauft == true){
-      aktion = "erledigt"
-    }else {
-      aktion = "unerledigt"
-    }
-    // App.informieren mit 'aktion'
-    Modell.informieren(`${artikel.name}"ist" ${aktion}`)
-    // 'state' aktualisieren
+    const aktion = (artikel.gekauft) ? "erledigt" : "reaktiviert"
+    Modell.informieren("[App] Artikel \"" + artikel.name + "\" wurde " + aktion)
     this.setState(this.state)
   }
 
   artikelHinzufuegen() {
     // ToDo: implementiere diese Methode
-    let eingabe =document.getElementById("artikelEingabe")
-    if (eingabe.value.trim().length > 0) {
-      Modell.aktiveGruppe.artikelHinzufuegen(eingabe.value)
+    const eingabe = document.getElementById("artikelEingabe")
+    const artikelName = eingabe.value.trim()
+    if (artikelName.length > 0) {
+      Modell.aktiveGruppe.artikelHinzufuegen(artikelName)
       this.setState(this.state)
     }
     eingabe.value = ""
@@ -75,10 +67,10 @@ class App extends React.Component {
   }
 
   render() {
-    let nochNichtGesehen = []
+    let nochZuKaufen = []
     if (this.state.einkaufenAufgeklappt == true) {
       for (const gruppe of Modell.gruppenListe) {
-        nochNichtGesehen.push(<GruppenTag
+        nochZuKaufen.push(<GruppenTag
           key={gruppe.id}
           gruppe={gruppe}
           gekauft={false}
@@ -88,17 +80,23 @@ class App extends React.Component {
       }
     }
 
-
-    let schonGesehen = []
+    let schonGekauft = []
     if (this.state.erledigtAufgeklappt) {
       for (const gruppe of Modell.gruppenListe) {
-        schonGesehen.push(<GruppenTag
+        schonGekauft.push(<GruppenTag
           key={gruppe.id}
           gruppe={gruppe}
           gekauft={true}
           aktiveGruppeHandler={() => this.setAktiveGruppe(gruppe)}
           checkHandler={this.artikelChecken}/>)
       }
+    }
+
+    let gruppenDialog = ""
+    if (this.state.showGruppenDialog) {
+      gruppenDialog = <GruppenDialog
+        gruppenListe={Modell.gruppenListe}
+        onDialogClose={() => this.setState({showGruppenDialog: false})}/>
     }
 
     return (
@@ -122,31 +120,32 @@ class App extends React.Component {
 
         <main>
           <section>
-            <h2>Noch nicht gesehen
+            <h2>Noch zu kaufen
               <i onClick={() => this.einkaufenAufZuKlappen()} className="material-icons">
                 {this.state.einkaufenAufgeklappt ? 'expand_more' : 'expand_less'}
               </i>
             </h2>
             <dl>
-              {nochNichtGesehen}
+              {nochZuKaufen}
             </dl>
           </section>
           <hr/>
           <section>
-            <h2>Schon gesehen
+            <h2>Schon gekauft
               <i onClick={() => this.erledigtAufZuKlappen()} className="material-icons">
                 {this.state.erledigtAufgeklappt ? 'expand_more' : 'expand_less'}
               </i>
             </h2>
             <dl>
-              {schonGesehen}
+              {schonGekauft}
             </dl>
           </section>
         </main>
         <hr/>
 
         <footer>
-          <button className="mdc-button mdc-button--raised">
+          <button className="mdc-button mdc-button--raised"
+                  onClick={() => this.setState({showGruppenDialog: true})}>
             <span className="material-icons">bookmark_add</span>
             <span className="mdc-button__ripple"></span> Gruppen
           </button>
@@ -159,6 +158,8 @@ class App extends React.Component {
             <span className="mdc-button__ripple"></span> Setup
           </button>
         </footer>
+
+        {gruppenDialog}
       </div>
     )
   }
