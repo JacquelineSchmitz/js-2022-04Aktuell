@@ -2,6 +2,7 @@ import React from 'react';
 /**
  * 1) Vertausche false mit true in der App.js und schaue dir an, wie sich die Ausgabe ändert.
  */
+
 function NutzerGruss(props) {
   return <h1>Willkommen zurück!</h1>;
 }
@@ -69,7 +70,10 @@ function Gruesse2(props) {
 
   const isLoggedIn = props.isLoggedIn;
   //ToDo: Schreibe hier deinen Code!
-
+  if (isLoggedIn) {
+    return <NutzerGruss2 />;
+  }
+  return <GastGruss2 />;
 }
 
 
@@ -104,6 +108,7 @@ export function Mailbox(props) {
 
         <h1>Willkommen zu deiner Mailbox!</h1>
         {//ToDo: Hier die Bedingung und den Operator einfügen
+          ungeleseneNachrichten.length >0 &&
             <h2>
               Du hast {ungeleseneNachrichten.length} ungelesene Nachrichten.
             </h2>
@@ -130,7 +135,7 @@ export class NutzerGruessung extends React.Component {
 
   //ToDo: Schreibe hier deinen Code statt des Rückgabewerts null!
     render(){
-      return null
+      return (this.state.isLoggedIn ? NutzerGruss2(): GastGruss2())
     }
 }
 
