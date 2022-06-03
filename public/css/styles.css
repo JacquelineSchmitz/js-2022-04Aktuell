@@ -10,11 +10,11 @@
     opacity: 80%;
 }
 :root {
-    --mdc-theme-primary: #bb86fc;
+    --mdc-theme-primary: lightpink;
     --mdc-theme-secondary: #827717;
 }
 dt {
-    background-color: #bb86fc;
+    background-color: lightpink;
     color: var(--mdc-theme-on-primary);
 
 
@@ -23,13 +23,14 @@ h2, dd {
     background-color: var(--mdc-theme-on-primary);
 }
 
-.aktiv { background-color: #018786 }
+.aktiv { background-color: slateblue }
 .inaktiv { background-color : #bb86fc }
 h1, h2, dl {
     margin: 0;
 
 }
 h1 {
+    margin: 1px;
     text-align: center;
     color: white;
 }

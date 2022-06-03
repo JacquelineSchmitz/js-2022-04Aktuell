@@ -9,6 +9,10 @@ class SortierDialog extends React.Component {
     }
   }
 
+  /**
+   * rerendert die Sortierung
+   * @param event
+   */
   handleChange(event) {
     this.setState({sortierung: event.target.value})
   }
