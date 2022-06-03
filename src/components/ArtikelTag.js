@@ -38,7 +38,7 @@ class ArtikelTag extends React.Component {
       artikelName = <s>{artikel.name}</s>
     }
 
-    // erlaubt das abhaken und reaktivieren
+    /** erlaubt das abhaken und reaktivieren*/
     const viewTemplate = (
       <dd>
         <label>
@@ -55,7 +55,7 @@ class ArtikelTag extends React.Component {
            onClick={this.props.deleteHandler}>delete</i></dd>
     )
 
-    // erlaubt das Ändern des Namens
+    /** erlaubt das Ändern des Namens*/
     let editTemplate = (
       <dd>
         <input type="search" value={this.state.newName} autoFocus={true}

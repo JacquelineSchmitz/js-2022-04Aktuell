@@ -97,8 +97,8 @@ class App extends React.Component {
 
   /**
    * Schließt den Sortier Dialog
-   * @param {reihenfolge} reihenfolge - Die akutuelle reihenfolge wird ausgegeben
-   * @param {sortieren}  sortieren - Und gibt sie sortiert aus
+   * @param {reihenfolge} reihenfolge - Eigene Reihenfolge
+   * @param {sortieren}  sortieren - aufsteigend, absteigend
    */
   closeSortierDialog = (reihenfolge, sortieren) => {
     if (sortieren) {

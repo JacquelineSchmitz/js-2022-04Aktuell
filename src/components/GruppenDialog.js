@@ -23,8 +23,8 @@ class GruppenDialog extends React.Component {
   }
 
   /**
-   * Entfernt eine Gruppe
-   * @param name - Name der ausgewählten Gruppe
+   * Entfernt ausgewählte Gruppe
+   * @param name - entfernt Gruppen Name
    */
   gruppeEntfernen(name) {
     Modell.gruppeEntfernen(name)
