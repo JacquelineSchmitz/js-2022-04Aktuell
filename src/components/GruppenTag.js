@@ -1,6 +1,16 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import ArtikelTag from './ArtikelTag'
 
+/**
+ * Diese Komponente repräsentiert eine Artikelgruppe
+ * @component
+ * @property {Boolean} aktiv - setzt diese Gruppe als `aktiveGruppe` in der App.js
+ * @property {Function} aktiveGruppeHandler - setzt diese Gruppe als `aktiveGruppe` in der {@link ../App}
+ * @property {Function} checkHandler - erledigt und reaktiviert Artikel; wird an den {@link ArtikelTag} durchgereicht
+ * @property {Boolean} gekauft - steuert, ob diese Gruppe in der "Gekauft-" oder "NochZuKaufen-Liste" erscheint
+ * @property {Gruppe} gruppe - die darzustellende Gruppe
+ */
 class GruppenTag extends React.Component {
   constructor(props) {
     super(props)
@@ -9,13 +19,20 @@ class GruppenTag extends React.Component {
     }
   }
 
+  componentDidMount() {
+    let aufgeklappt = localStorage.getItem("gruppe-" + this.props.gruppe.id)
+    aufgeklappt = (aufgeklappt == null) ? true : JSON.parse(aufgeklappt)
+    this.setState({aufgeklappt: aufgeklappt})
+  }
+
   artikelEntfernen(name) {
     this.props.gruppe.artikelEntfernen(name)
-    // this.props.aktiveGruppeHandler(this.props.gruppe)
-    this.forceUpdate()
+    this.props.aktiveGruppeHandler(this.props.gruppe)
   }
 
   aufZuKlappen() {
+    const neuerZustand = !this.state.aufgeklappt
+    localStorage.setItem("gruppe-" + this.props.gruppe.id, neuerZustand)
     this.setState({aufgeklappt: !this.state.aufgeklappt})
   }
 
@@ -56,4 +73,12 @@ class GruppenTag extends React.Component {
   }
 }
 
+GruppenTag.propTypes = {
+  aktiv: PropTypes.bool,
+  aktiveGruppeHandler: PropTypes.func.isRequired,
+  checkHandler: PropTypes.func.isRequired,
+  gekauft: PropTypes.bool.isRequired,
+  gruppe: PropTypes.object.isRequired,
+
+}
 export default GruppenTag
