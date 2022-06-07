@@ -10,12 +10,12 @@
     opacity: 80%;
 }
 :root {
-    --mdc-theme-primary: lightpink;
+    --mdc-theme-primary: slateblue;
     --mdc-theme-secondary: #827717;
 }
 dt {
-    background-color: lightpink;
-    color: var(--mdc-theme-on-primary);
+    background-color: slateblue;
+    color: black;
 
 
 }
@@ -33,6 +33,9 @@ h1 {
     margin: 1px;
     text-align: center;
     color: white;
+}
+dl{
+    margin: 15px;
 }
 h2 {
     padding: 10px 0 10px 15px;
@@ -60,7 +63,7 @@ dt {
     border-radius: 10px;
     margin-right: 10px;
     margin-left: 10px;
-    margin: 3px;
+    margin: 2px;
 }
 dt span {
     width: 100%;
@@ -73,7 +76,14 @@ dt, dd {
 dd {
     display: flex;
     margin-left: 0;
-    margin: 3px;
+    margin: 0px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    opacity: 85%;
+    padding-left: 10px;
+
 }
 dd label {
     padding: 3px 0;
@@ -129,4 +139,8 @@ footer {
 .mdc-text-field {
     margin-left: 5%;
     border-radius: 5px;
+}
+
+hr {
+    opacity: 0%;
 }

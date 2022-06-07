@@ -3,3 +3,7 @@
 .DS_Store
 /node_modules
 /build
+/react3b/node_modules
+/react3/node_modules
+/react4/node_modules
+/react5/node_modules
