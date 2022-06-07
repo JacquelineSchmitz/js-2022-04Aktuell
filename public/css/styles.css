@@ -59,7 +59,7 @@ button.material-icons {
 dt {
     display: flex;
     font-weight: 500;
-    padding: 9px 0 3px 5px;
+    padding: 9px 0 3px 10px;
     border-radius: 10px;
     margin-right: 10px;
     margin-left: 10px;
@@ -69,14 +69,17 @@ dt span {
     width: 100%;
     margin-left: 5%;
 }
+dd span {
+    width: 100%;
+    margin-left: 5%;
+}
 dt, dd {
     height: 2rem;
     font-size: 1.2rem;
 }
 dd {
     display: flex;
-    margin-left: 0;
-    margin: 0px;
+    margin: 2px;
     margin-top: 0px;
     margin-bottom: 10px;
     border-bottom-left-radius: 5px;
